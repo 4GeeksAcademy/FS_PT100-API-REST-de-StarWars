@@ -8,12 +8,48 @@ class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
-
 
     def serialize(self):
         return {
             "id": self.id,
             "email": self.email,
-            # do not serialize the password, its a security breach
+            "password": self.password,
+        }
+
+class People(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+    gender: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "gender": self.gender,
+        }
+
+class Vehicles(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+    model: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "model": self.model,
+        }
+
+class Planets(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+    terrain: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+    climate: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "terrain": self.terrain,
+            "climate": self.climate,
         }
